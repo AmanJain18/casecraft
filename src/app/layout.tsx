@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/custom/Navbar';
 import Footer from '@/components/custom/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import ClientProvider from '@/components/custom/ClientProvider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -33,7 +34,11 @@ export default function RootLayout({
       >
         <Navbar />
         <main className="flex flex-col min-h-[calc(100vh-3.5rem)]">
-          <div className="flex flex-col flex-1 h-full">{children}</div>
+          <div className="flex flex-col flex-1 h-full">
+            <ClientProvider>
+              {children}
+            </ClientProvider>
+          </div>
           <Footer />
         </main>
         <Toaster/>
