@@ -1,14 +1,3 @@
-// bg-zinc-900 border-zinc-900
-// bg-orange-800 border-orange-800
-// bg-amber-700 border-amber-700
-// bg-yellow-700 border-yellow-700
-// bg-lime-800 border-lime-800
-// bg-emerald-700 border-emerald-700
-// bg-teal-700 border-teal-700
-// bg-blue-950 border-blue-950
-// bg-purple-900 border-purple-900
-// bg-rose-800 border-rose-800
-
 export const COLORS = [
     {
         name: 'Black',
