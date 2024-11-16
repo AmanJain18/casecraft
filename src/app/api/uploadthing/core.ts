@@ -1,8 +1,7 @@
-import { updateConfiguration } from './../../../db/index';
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import * as z from 'zod';
 import sharp from 'sharp';
-import { createConfiguration } from '@/db';
+import { createConfiguration, updateConfiguration } from '@/db';
 
 const f = createUploadthing();
 

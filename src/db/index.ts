@@ -1,4 +1,4 @@
-import { PrismaClient, Configuration } from '@prisma/client';
+import { Configuration, PrismaClient } from '@prisma/client';
 
 declare global {
     // eslint-disable-next-line no-var
@@ -35,38 +35,6 @@ export const updateConfiguration = async (
             croppedImageUrl,
         },
     });
-
-// export const createListing = async (
-//   userId: string,
-//   category: string,
-//   location: string,
-//   guestCount: number,
-//   roomCount: number,
-//   bathroomCount: number,
-//   bedCount: number,
-//   imageSrc: string,
-//   price: number,
-//   title: string,
-//   description: string,
-//   currency: string
-// ) => {
-//   return client.listing.create({
-//     data: {
-//       userId,
-//       category,
-//       location,
-//       guestCount,
-//       roomCount,
-//       bathroomCount,
-//       bedCount,
-//       imageSrc,
-//       price,
-//       title,
-//       description,
-//       currency,
-//     },
-//   });
-// };
 
 export const getConfigurationById = async (id: string) => {
     return client.configuration.findUnique({
