@@ -17,11 +17,13 @@ import { useToast } from '@/hooks/use-toast';
 import { useUploadThing } from '@/lib/uploadthing';
 import { cn, formatPrice } from '@/lib/utils';
 import { Description, Radio, RadioGroup } from '@headlessui/react';
-import { ArrowRight, Check, ChevronsUpDown } from 'lucide-react';
+import { ArrowRight, Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import NextImage from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
+import { useMutation } from '@tanstack/react-query';
+import { saveConfig, SaveConfigArgs } from './actions';
 
 interface DesignCaseProps {
     configId: string;
@@ -51,6 +53,22 @@ const DesignCase = ({
     const { toast } = useToast();
     const router = useRouter();
 
+    const { mutate: saveSelectedConfig, isPending } = useMutation({
+        mutationKey: ['save-config'],
+        mutationFn: async (args: SaveConfigArgs) => {
+            await Promise.all([saveConfiguration(), saveConfig(args)]);
+        },
+        onError: () => {
+            toast({
+                title: 'Something went wrong',
+                description: 'There was an error on our end. Please try again.',
+                variant: 'destructive',
+            });
+        },
+        onSuccess: () => {
+            router.push(`/configure/preview?id=${configId}`);
+        },
+    });
     const [options, setOptions] = useState<OptionsState>({
         color: COLORS[0],
         model: MODELS.options[6],
@@ -128,6 +146,7 @@ const DesignCase = ({
             });
 
             await startUpload([file], { configId });
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
             toast({
                 title: 'Something went wrong',
@@ -408,15 +427,30 @@ const DesignCase = ({
                                 )}
                             </p>
                             <Button
-                                // isLoading={isPending}
-                                // disabled={isPending}
-                                // loadingText='Saving'
-                                onClick={() => saveConfiguration()}
+                                disabled={isPending}
+                                onClick={() =>
+                                    saveSelectedConfig({
+                                        configId,
+                                        color: options.color.value,
+                                        material: options.material.value,
+                                        finish: options.finish.value,
+                                        model: options.model.value,
+                                    })
+                                }
                                 size='sm'
                                 className='w-full'
                             >
-                                Continue
-                                <ArrowRight className='ml-1.5 inline h-4 w-4' />
+                                {isPending ? (
+                                    <>
+                                        Saving
+                                        <Loader2 className='ml-1.5 inline h-4 w-4 animate-spin' />
+                                    </>
+                                ) : (
+                                    <>
+                                        Continue
+                                        <ArrowRight className='ml-1.5 inline h-4 w-4' />
+                                    </>
+                                )}
                             </Button>
                         </div>
                     </div>
