@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -48,25 +48,81 @@ enum CaseColor {
 }
 
 model Configuration {
-  id String @id @default(cuid())
-  width Int
-  height Int
+  id               String        @id @default(cuid())
+  width            Int
+  height           Int
   originalImageUrl String
-  croppedImageUrl String?
-  color CaseColor?
-  model PhoneModel?
-  material CaseMaterial?
-  finish CaseFinish?
+  croppedImageUrl  String?
+  color            CaseColor?
+  model            PhoneModel?
+  material         CaseMaterial?
+  finish           CaseFinish?
+  userId           String?
+  user             User?         @relation(fields: [userId], references: [id])
+  orders           Order[] // A configuration can have multiple orders, but each configuration is unique to a user
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model User {
-  id    String  @id @default(cuid())
-  email String
+  id             String          @id @default(cuid())
+  email          String          @unique
+  providerId     String          @unique
+  name           String?
+  orders         Order[]
+  configurations Configuration[] // A user can have one or more configurations, but each configuration is tied to only one user.
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model Order {
+  id                String        @id @unique @default(cuid())
+  configurationId   String
+  configuration     Configuration @relation(fields: [configurationId], references: [id])
+  userId            String
+  user              User          @relation(fields: [userId], references: [id])
+  amount            Float
+  isPaid            Boolean       @default(false)
+  orderStatus       OrderStatus
+  stripePaymentId   String?
+  shippingAddressId String?
+  billingAddressId  String?
+
+  shippingAddress ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
+  billingAddress  BillingAddress?  @relation(fields: [billingAddressId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ShippingAddress {
+  id         String  @id @default(cuid())
+  name       String
+  street     String
+  city       String
+  postalCode String
+  state      String?
+  country    String
+  contact    String?
+  orders     Order[] // Relation to orders
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BillingAddress {
+  id         String  @id @default(cuid())
+  name       String
+  street     String
+  city       String
+  postalCode String
+  state      String?
+  country    String
+  contact    String?
+  orders     Order[] // Relation to orders
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
