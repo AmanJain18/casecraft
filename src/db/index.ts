@@ -124,4 +124,19 @@ export const createOrder = async (
     });
 };
 
+export const getOrder = async (id: string, userId: string) => {
+    return client.order.findFirst({
+        where: {
+            id,
+            userId,
+        },
+        include: {
+            billingAddress: true,
+            configuration: true,
+            shippingAddress: true,
+            user: true,
+        },
+    });
+};
+
 export default client;
