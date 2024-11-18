@@ -1,16 +1,19 @@
 'use client';
 import Phone from '@/components/custom/Phone';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { BASE_PRICE, COLORS, MODELS, PRODUCT_PRICES } from '@/constant';
-import { useToast } from '@/hooks/use-toast';
 import { cn, formatPrice } from '@/lib/utils';
+import { COLORS, MODELS, BASE_PRICE, PRODUCT_PRICES } from '@/constant';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { Configuration } from '@prisma/client';
+import { useMutation } from '@tanstack/react-query';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { Separator } from '@/components/ui/separator';
+import { createCheckoutSession } from './actions';
+import LoginModal from '@/components/custom/LoginModal';
 interface DesignPreviewProps {
     configuration: Configuration;
 }
@@ -30,6 +33,7 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
     const router = useRouter();
     const { toast } = useToast();
     const { user } = useKindeBrowserClient();
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
     const [showConfetti, setShowConfetti] = useState(false);
     const { id, color, model, finish, material } = configuration;
 
@@ -44,13 +48,38 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
         totalPrice += PRODUCT_PRICES.material.polycarbonate;
     if (finish === 'textured') totalPrice += PRODUCT_PRICES.finish.textured;
 
-    const handleCheckout = () => {
-        if (user) {
-            // create payment session
-            // createPaymentSession({ configId: id });
-        } else {
-            // User Needs to Login -> Open Login Modal
-            localStorage.setItem('configurationId', id);
+    const { mutate: createPaymentSession, isPending } = useMutation({
+        mutationKey: ['get-checkout-session'],
+        mutationFn: createCheckoutSession,
+        onSuccess: ({ url }) => {
+            if (url) router.push(url);
+            else throw new Error('Unable to retrieve payment URL.');
+        },
+        onError: () => {
+            toast({
+                title: 'Something went wrong',
+                description: 'There was an error on our end. Please try again.',
+                variant: 'destructive',
+            });
+        },
+    });
+    const handleCheckout = async () => {
+        try {
+            if (user) {
+                // Step 3: Create payment session
+                createPaymentSession({ configId: id });
+            } else {
+                // User Needs to Login -> Open Login Modal
+                localStorage.setItem('configurationId', id);
+                setIsLoginModalOpen(true);
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: 'Something went wrong.',
+                variant: 'destructive',
+            });
         }
     };
 
@@ -63,6 +92,11 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
             <div className='pointer-events-none absolute inset-0 flex select-none justify-center overflow-hidden'>
                 <Confetti active={showConfetti} config={config} />
             </div>
+
+            <LoginModal
+                isOpen={isLoginModalOpen}
+                setIsOpen={setIsLoginModalOpen}
+            />
 
             <div className='container mx-auto mt-20 px-4 sm:px-6 md:mt-16 lg:px-8'>
                 <div className='grid grid-cols-1 justify-items-center gap-y-10 md:grid-cols-12 md:gap-x-8 lg:gap-x-12'>
@@ -200,12 +234,12 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                         {/* Checkout Button */}
                         <div className='flex justify-end pb-8'>
                             <Button
-                                // disabled={isPending}
+                                disabled={isPending}
                                 onClick={() => handleCheckout()}
                                 size='sm'
                                 className='w-full px-4 sm:px-6 lg:px-8'
                             >
-                                {false ? (
+                                {isPending ? (
                                     <>
                                         Processing Order{' '}
                                         <Loader2 className='ml-1.5 inline h-4 w-4 animate-spin' />
