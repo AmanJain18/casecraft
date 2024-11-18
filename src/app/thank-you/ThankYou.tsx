@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import { getPaymentStatus } from './actions';
+import PhonePreview from '@/components/custom/PhonePreview';
 
 const ThankYou = () => {
     const searchParams = useSearchParams();
@@ -62,7 +63,8 @@ const ThankYou = () => {
     }
 
     // Successful Payment
-    const { billingAddress, shippingAddress, amount } = data!;
+    const { billingAddress, shippingAddress, amount, configuration } = data!;
+    const { color, croppedImageUrl } = configuration!;
 
     return (
         <div className='bg-white py-16 sm:py-24 lg:py-32'>
@@ -97,7 +99,10 @@ const ThankYou = () => {
                 </div>
 
                 <div className='mt-4 flex justify-center space-x-6 overflow-hidden rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10'>
-                    {/* TODO:// Add Phone Preview Showcase */}
+                    <PhonePreview
+                        imgSrc={croppedImageUrl!}
+                        color={color!}
+                    />
                 </div>
 
                 {/* Address Section */}
@@ -108,14 +113,19 @@ const ThankYou = () => {
                         </p>
                         <address className='mt-2 text-zinc-700'>
                             {shippingAddress?.name && (
-                                <span className='block'>{shippingAddress.name},</span>
+                                <span className='block'>
+                                    {shippingAddress.name},
+                                </span>
                             )}
                             {shippingAddress?.street && (
-                                <span className='block'>{shippingAddress.street},</span>
+                                <span className='block'>
+                                    {shippingAddress.street},
+                                </span>
                             )}
                             {shippingAddress?.postalCode && (
                                 <span className='block'>
-                                    {shippingAddress.postalCode}{', '}
+                                    {shippingAddress.postalCode}
+                                    {', '}
                                     {shippingAddress.city}
                                 </span>
                             )}
@@ -127,14 +137,19 @@ const ThankYou = () => {
                         </p>
                         <address className='mt-2 text-zinc-700'>
                             {billingAddress?.name && (
-                                <span className='block'>{billingAddress.name}</span>
+                                <span className='block'>
+                                    {billingAddress.name}
+                                </span>
                             )}
                             {billingAddress?.street && (
-                                <span className='block'>{billingAddress.street}</span>
+                                <span className='block'>
+                                    {billingAddress.street}
+                                </span>
                             )}
                             {billingAddress?.postalCode && (
                                 <span className='block'>
-                                    {billingAddress.postalCode}{', '}
+                                    {billingAddress.postalCode}
+                                    {', '}
                                     {billingAddress.city}
                                 </span>
                             )}
@@ -143,7 +158,7 @@ const ThankYou = () => {
                 </div>
 
                 {/* Payment Status Section */}
-                <div className='grid grid-cols-2 gap-x-6 border-t border-zinc-200 mt-10 text-sm py-4 '>
+                <div className='mt-10 grid grid-cols-2 gap-x-6 border-t border-zinc-200 py-4 text-sm'>
                     <div>
                         <p className='font-medium text-zinc-900'>
                             Payment status
