@@ -91,18 +91,20 @@ const ThankYou = () => {
                         You made a great choice!
                     </h4>
                     <p className='mt-2 text-sm text-zinc-600'>
-                        We at PhoneCase believe that a phone case doesn't only
-                        need to look good, but also last you for years. We offer
-                        a 3-year print guarantee: If your case isn't of the
-                        highest quality, we'll replace it for free.
+                        At Case Craft, we believe your phone case should reflect
+                        who you are. That's why we offer a one-of-a-kind custom
+                        design experience that lets you turn your favorite
+                        memories into durable, stylish phone cases. We craft
+                        your ideas into reality. 
+                        <br />
+                        We offer a 3-year print
+                        guarantee: If your case isn't of the highest quality,
+                        we'll replace it for free.
                     </p>
                 </div>
 
                 <div className='mt-4 flex justify-center space-x-6 overflow-hidden rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10'>
-                    <PhonePreview
-                        imgSrc={croppedImageUrl!}
-                        color={color!}
-                    />
+                    <PhonePreview imgSrc={croppedImageUrl!} color={color!} />
                 </div>
 
                 {/* Address Section */}
