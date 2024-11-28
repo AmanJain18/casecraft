@@ -7,6 +7,32 @@ import {
     CaseMaterial,
     PhoneModel,
 } from '@prisma/client';
+import { z } from 'zod';
+
+const fetchConfigSchema = z.object({
+    configId: z.string(),
+});
+
+export async function getConfigDetails(configId: string) {
+    fetchConfigSchema.parse({ configId });
+
+    // Fetch configuration from database
+    const config = await client.configuration.findUnique({
+        where: { id: configId },
+    });
+
+    if (!config) {
+        throw new Error(`Configuration with ID ${configId} not found.`);
+    }
+
+    return {
+        configId: config.id,
+        color: config.color || null,
+        material: config.material || null,
+        finish: config.finish || null,
+        model: config.model || null,
+    };
+}
 
 export type SaveConfigArgs = {
     configId: string;

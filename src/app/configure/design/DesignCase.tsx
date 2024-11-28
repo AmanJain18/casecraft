@@ -20,10 +20,10 @@ import { Description, Radio, RadioGroup } from '@headlessui/react';
 import { ArrowRight, Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import NextImage from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Rnd } from 'react-rnd';
-import { useMutation } from '@tanstack/react-query';
-import { saveConfig, SaveConfigArgs } from './actions';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getConfigDetails, saveConfig, SaveConfigArgs } from './actions';
 
 interface DesignCaseProps {
     configId: string;
@@ -52,6 +52,17 @@ const DesignCase = ({
 }: DesignCaseProps) => {
     const { toast } = useToast();
     const router = useRouter();
+
+    const {
+        data: config,
+        isLoading,
+        isError,
+    } = useQuery({
+        queryKey: ['config-details', configId],
+        queryFn: () => getConfigDetails(configId),
+        retry: 2,
+        retryDelay: 500,
+    });
 
     const { mutate: saveSelectedConfig, isPending } = useMutation({
         mutationKey: ['save-config'],
@@ -173,6 +184,29 @@ const DesignCase = ({
         const byteArray = new Uint8Array(byteNumbers);
         return new Blob([byteArray], { type: mimeType });
     }
+
+    useEffect(() => {
+        if (config) {
+            setOptions({
+                color:
+                    COLORS.find((c) => c.value === config.color) || COLORS[0],
+                model:
+                    MODELS.options.find((m) => m.value === config.model) ||
+                    MODELS.options[0],
+                material:
+                    MATERIALS.options.find(
+                        (mat) => mat.value === config.material,
+                    ) || MATERIALS.options[0],
+                finish:
+                    FINISHES.options.find(
+                        (fin) => fin.value === config.finish,
+                    ) || FINISHES.options[0],
+            });
+        }
+    }, [config]);
+
+    if (isLoading) return <div>Loading configuration...</div>;
+    if (isError) return <div>Failed to load configuration.</div>;
 
     return (
         <div className='relative mb-20 mt-20 grid grid-cols-1 lg:grid-cols-3'>
