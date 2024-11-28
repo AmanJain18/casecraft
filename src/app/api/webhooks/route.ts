@@ -94,7 +94,7 @@ export async function POST(req: Request) {
             });
 
             await resend.emails.send({
-                from: `PhoneCase <${adminEmail}>`,
+                from: `Case Craft <${adminEmail}>`,
                 to: [session.customer_details.email!],
                 subject: 'Thanks for your order!',
                 react: OrderReceived({

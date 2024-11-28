@@ -66,7 +66,7 @@ export const OrderReceived = ({
                             src={`${baseUrl}/images/snake-1.png`}
                             width='66'
                             height='70'
-                            alt='PhoneCase Logo'
+                            alt='Case Craft'
                             style={{ margin: 'auto' }}
                         />
                         <Heading style={global.heading}>
@@ -232,7 +232,7 @@ export const OrderReceived = ({
                     <Hr style={global.hr} />
                     <Section style={paddingY}>
                         <Row>
-                            <Text style={global.heading}>PhoneCase</Text>
+                            <Text style={global.heading}>Case Craft</Text>
                         </Row>
                     </Section>
                     <Hr style={{ ...global.hr, marginTop: '12px' }} />
@@ -260,7 +260,7 @@ export const OrderReceived = ({
                         </Row>
                         <Row>
                             <Text style={footer.text}>
-                                © {getYear()} PhoneCase, Inc. All Rights
+                                © {getYear()} Case Craft, Inc. All Rights
                                 Reserved.
                             </Text>
                         </Row>
