@@ -115,11 +115,11 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                         {/* Heading and Subheading */}
                         <div className='flex flex-col items-center md:items-start'>
                             <h3 className='text-3xl font-bold tracking-tight text-gray-900'>
-                                Your {modelLabel} Case
+                                Your custom {modelLabel} Case
                             </h3>
                             <p className='mt-3 flex items-center gap-1.5 text-base text-primary'>
                                 <Check className='h-5 w-5' />
-                                In stock and ready to ship
+                                In Stock and Ready to Ship
                             </p>
                         </div>
 
@@ -131,12 +131,22 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                                     Highlights
                                 </p>
                                 <ol className='mt-3 list-inside list-disc text-zinc-700'>
-                                    <li>Wireless charging compatible</li>
-                                    <li>TPU shock absorption</li>
+                                    <li>Wireless Charging Compatible</li>
                                     <li>
-                                        Packaging made from recycled materials
+                                        TPU Shock Absorption for extra
+                                        protection
                                     </li>
-                                    <li>3 year print warranty</li>
+                                    <li>
+                                        Packaging Made from Recycled Materials –
+                                        Eco-friendly{' '}
+                                    </li>
+                                    <li>
+                                        3-Year Print Warranty for peace of mind{' '}
+                                    </li>
+                                    <li>
+                                        Smooth and Textured Finish Options –
+                                        Choose your style
+                                    </li>
                                 </ol>
                             </div>
 
@@ -146,10 +156,17 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                                     Materials
                                 </p>
                                 <ol className='mt-3 list-inside list-disc text-zinc-700'>
-                                    <li>High-quality, durable material</li>
                                     <li>
-                                        Scratch- and fingerprint-resistant
-                                        coating
+                                        High-Quality, Durable Materials for
+                                        long-lasting protection
+                                    </li>
+                                    <li>
+                                        Soft Silicone for a flexible, premium
+                                        feel
+                                    </li>
+                                    <li>
+                                        Polycarbonate Hard Case for extra
+                                        durability and structure
                                     </li>
                                 </ol>
                             </div>
@@ -199,8 +216,8 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                                     <div className='flex items-center justify-between py-1'>
                                         <p className='text-gray-600'>
                                             {material === 'polycarbonate'
-                                                ? 'Soft polycarbonate material'
-                                                : 'Silicone material'}
+                                                ? 'Hard Polycarbonate Case'
+                                                : 'Soft Silicone Case'}
                                         </p>
                                         <p className='font-medium text-gray-900'>
                                             {material === 'polycarbonate'
