@@ -1,4 +1,10 @@
-import { Configuration, Order, PrismaClient, User } from '@prisma/client';
+import {
+    Configuration,
+    Order,
+    PrismaClient,
+    User,
+    Prisma,
+} from '@prisma/client';
 
 declare global {
     // eslint-disable-next-line no-var
@@ -135,6 +141,40 @@ export const getOrder = async (id: string, userId: string) => {
             configuration: true,
             shippingAddress: true,
             user: true,
+        },
+    });
+};
+
+export type ConfigurationWithOrders = Prisma.ConfigurationGetPayload<{
+    include: { orders: true };
+}>;
+
+export const getConfigurationsByUserId = async (
+    userId: string,
+): Promise<ConfigurationWithOrders[]> => {
+    return client.configuration.findMany({
+        where: { userId },
+        include: { orders: true },
+    });
+};
+
+export const deleteConfiguration = async (id: string, userId: string) => {
+    return client.configuration.delete({
+        where: { id, userId },
+    });
+};
+
+export const getUserOrdersFromDb = async (userId: string) => {
+    return client.order.findMany({
+        where: { userId },
+        orderBy: {
+            createdAt: 'desc', // Orders sorted by latest first
+        },
+        include: {
+            configuration: true, // Include configuration details if necessary
+            user: true, // Include user details if necessary
+            billingAddress: true,
+            shippingAddress: true,
         },
     });
 };
