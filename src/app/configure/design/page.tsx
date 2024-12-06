@@ -2,11 +2,9 @@ import DesignCase from '@/app/configure/design/DesignCase';
 import { getConfigurationById } from '@/db';
 import { notFound } from 'next/navigation';
 
-interface PageProps {
-    searchParams: {
-        [key: string]: string | string[] | undefined;
-    };
-}
+type PageProps = {
+    searchParams: Promise<{ id: string }>;
+};
 
 const page = async ({ searchParams }: PageProps) => {
     const { id } = await searchParams;

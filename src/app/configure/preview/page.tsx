@@ -2,11 +2,9 @@ import { getConfigurationById } from '@/db';
 import { notFound } from 'next/navigation';
 import DesignPreview from '@/app/configure/preview/DesignPreview';
 
-interface PageProps {
-    searchParams: {
-        [key: string]: string | string[] | undefined;
-    };
-}
+type PageProps = {
+    searchParams: Promise<{ id: string }>;
+};
 
 const page = async ({ searchParams }: PageProps) => {
     const { id } = await searchParams;
