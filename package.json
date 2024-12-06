@@ -1,7 +1,19 @@
 {
-  "name": "CaseCraft",
+  "name": "casecraft",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Aman Jain",
+    "email": "amansjain.aj@gmail.com",
+    "url": "https://aman-jain.vercel.app",
+    "label": "Aman Jain"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/casecraft/casecraft.git"
+  },
+  "publisher": "Aman Jain",
+  "readme": "README.md",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,6 +1,5 @@
 import CaseGrid from './CaseGrid';
 import MaxWithWrapper from './MaxWithWrapper';
-import Image from 'next/image';
 
 const PHONES = [
     '/testimonials/1.webp',
