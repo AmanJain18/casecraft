@@ -152,7 +152,7 @@ const DesignCase = ({
             const base64Data = base64.split(',')[1];
 
             const blob = base64ToBlob(base64Data, 'image/png');
-            const file = new File([blob], 'filename.png', {
+            const file = new File([blob], 'filename.webp', {
                 type: 'image/png',
             });
 
@@ -224,7 +224,7 @@ const DesignCase = ({
                         <NextImage
                             fill
                             alt='phone template'
-                            src='/images/phone-template.png'
+                            src='/images/phone-template.webp'
                             className='pointer-events-none z-50 select-none'
                         />
                     </AspectRatio>

@@ -63,7 +63,7 @@ export const OrderReceived = ({
                     <Hr style={global.hr} />
                     <Section style={message}>
                         <Img
-                            src={`${baseUrl}/images/snake-1.png`}
+                            src={`${baseUrl}/images/snake-1.webp`}
                             width='66'
                             height='70'
                             alt='Case Craft'
@@ -199,7 +199,7 @@ export const OrderReceived = ({
                                 <Row>
                                     <Column style={{ width: '16px' }}>
                                         <Img
-                                            src={`${baseUrl}/images/phone.png`}
+                                            src={`${baseUrl}/images/phone.webp`}
                                             width='16px'
                                             height='26px'
                                             style={{ paddingRight: '14px' }}

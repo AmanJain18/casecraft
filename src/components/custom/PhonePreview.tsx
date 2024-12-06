@@ -10,11 +10,7 @@ interface PhonePreviewProps extends HTMLAttributes<HTMLDivElement> {
     color: CaseColor;
 }
 
-const PhonePreview = ({
-    imgSrc,
-    color,
-}: PhonePreviewProps) => {
-
+const PhonePreview = ({ imgSrc, color }: PhonePreviewProps) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const [renderedDimensions, setRenderedDimensions] = useState({
@@ -63,7 +59,7 @@ const PhonePreview = ({
             <div className='relative z-40 h-full w-full'>
                 <img
                     alt='phone'
-                    src='/images/clear-phone.png'
+                    src='/images/clear-phone.webp'
                     className='pointer-events-none h-full w-full rounded-md antialiased'
                 />
             </div>

@@ -14,9 +14,9 @@ export default function Home() {
                 <MaxWithWrapper className='pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-3 lg:gap-x-0 lg:pb-52 lg:pt-24 xl:gap-x-8 xl:pb-64 xl:pt-32'>
                     <div className='col-span-2 px-6 lg:px-0 lg:pt-4'>
                         <div className='relative mx-auto flex flex-col items-center text-center lg:items-start lg:text-left'>
-                            <div className='absolute -top-20 left-0 hidden w-28 lg:block'>
+                            <div className='absolute -left-[4.5rem] -top-[12rem] hidden w-60 lg:block'>
                                 <Image
-                                    src='/images/snake-1.png'
+                                    src='/images/ccshort.webp'
                                     alt='Case Craft'
                                     className='h-full w-full'
                                     priority
@@ -76,35 +76,35 @@ export default function Home() {
                             <div className='mt-8 flex flex-col items-center gap-5 sm:flex-row sm:items-start'>
                                 <div className='flex -space-x-2'>
                                     <Image
-                                        src='/users/user-1.png'
+                                        src='/users/user-1.webp'
                                         alt='User Image'
                                         width={100}
                                         height={100}
                                         className='inline-block h-12 w-12 rounded-full object-cover ring-2 ring-slate-100'
                                     />
                                     <Image
-                                        src='/users/user-2.png'
+                                        src='/users/user-2.webp'
                                         alt='User Image'
                                         width={100}
                                         height={100}
                                         className='h-12 w-12 rounded-full object-cover ring-2 ring-slate-100'
                                     />
                                     <Image
-                                        src='/users/user-3.png'
+                                        src='/users/user-3.webp'
                                         alt='User Image'
                                         width={100}
                                         height={100}
                                         className='h-12 w-12 rounded-full object-cover ring-2 ring-slate-100'
                                     />
                                     <Image
-                                        src='/users/user-4.jpg'
+                                        src='/users/user-4.webp'
                                         alt='User Image'
                                         width={100}
                                         height={100}
                                         className='h-12 w-12 rounded-full object-cover ring-2 ring-slate-100'
                                     />
                                     <Image
-                                        src='/users/user-5.jpg'
+                                        src='/users/user-5.webp'
                                         alt='User Image'
                                         width={100}
                                         height={100}
@@ -134,20 +134,20 @@ export default function Home() {
                     <div className='col-span-full mt-32 flex h-fit w-full justify-center px-8 sm:px-16 md:px-0 lg:col-span-1 lg:mt-20 lg:px-0'>
                         <div className='relative md:max-w-xl'>
                             <Image
-                                src='/images/your-image.png'
+                                src='/images/your-image.webp'
                                 alt='Hero Image'
                                 width={600}
                                 height={400}
                                 className='absolute left-56 hidden w-40 select-none sm:-top-20 sm:block lg:hidden lg:w-52 xl:-top-36 xl:block'
                             />
                             <Image
-                                src='/images/line.png'
+                                src='/images/line.webp'
                                 alt='Dotted Line'
                                 width={400}
                                 height={600}
                                 className='absolute -bottom-6 -left-6 w-20 select-none'
                             />
-                            <Phone imgSrc='/testimonials/3.jpg' />
+                            <Phone imgSrc='/testimonials/3.webp' />
                         </div>
                     </div>
                 </MaxWithWrapper>
@@ -158,8 +158,9 @@ export default function Home() {
                 <MaxWithWrapper className='flex flex-col items-center gap-16 sm:gap-32'>
                     <div className='flex flex-col items-center gap-4 sm:gap-6 lg:flex-row'>
                         <img
-                            src='/images/snake-2.png'
-                            className='order-0 w-24 lg:order-2'
+                            src='/images/wocs.webp'
+                            className='order-0 w-42 h-28 lg:order-2'
+                            alt='we love our customers'
                         />
                         <h2 className='order-1 mt-2 text-balance text-center text-5xl font-bold !leading-tight tracking-tight text-gray-900 md:text-6xl'>
                             What our{' '}
@@ -198,7 +199,7 @@ export default function Home() {
                             <div className='mt-2 flex gap-4'>
                                 <img
                                     className='h-12 w-12 rounded-full object-cover'
-                                    src='/users/user-1.png'
+                                    src='/users/user-1.webp'
                                     alt='user'
                                 />
                                 <div className='flex flex-col'>
@@ -243,7 +244,7 @@ export default function Home() {
                             <div className='mt-2 flex gap-4'>
                                 <img
                                     className='h-12 w-12 rounded-full object-cover'
-                                    src='/users/user-4.jpg'
+                                    src='/users/user-4.webp'
                                     alt='user'
                                 />
                                 <div className='flex flex-col'>
@@ -289,20 +290,22 @@ export default function Home() {
                     <div className='mx-auto max-w-6xl px-6 lg:px-8'>
                         <div className='relative flex grid-cols-2 flex-col items-center gap-40 md:grid'>
                             <img
-                                src='/images/arrow.png'
+                                src='/images/arrow.webp'
                                 className='absolute left-1/2 top-[25rem] z-10 -translate-x-1/2 -translate-y-1/2 rotate-90 md:top-1/2 md:rotate-0'
+                                alt='arrow'
                             />
 
                             <div className='relative z-50 h-80 w-full max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 md:h-full md:justify-self-end lg:rounded-2xl'>
                                 <img
-                                    src='/images/horse.jpg'
+                                    src='/images/horse.webp'
                                     className='h-full w-full rounded-md bg-white object-cover shadow-2xl ring-1 ring-gray-900/10'
+                                    alt='horse'
                                 />
                             </div>
 
                             <Phone
                                 className='w-60'
-                                imgSrc='/images/horse_phone.jpg'
+                                imgSrc='/images/horse_phone.webp'
                             />
                         </div>
                     </div>

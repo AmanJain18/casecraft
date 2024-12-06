@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { HTMLAttributes } from 'react';
 
 interface PhoneProps extends HTMLAttributes<HTMLDivElement> {
-  imgSrc: string;
-  dark?: boolean;
+    imgSrc: string;
+    dark?: boolean;
 }
 
 /**
@@ -16,37 +16,37 @@ interface PhoneProps extends HTMLAttributes<HTMLDivElement> {
  */
 
 const Phone = ({ className, imgSrc, dark = false, ...props }: PhoneProps) => {
-  const frameSrc = dark
-    ? '/images/phone-template-dark-edges.png'
-    : '/images/phone-template-white-edges.png';
+    const frameSrc = dark
+        ? '/images/phone-template-dark-edges.webp'
+        : '/images/phone-template-white-edges.webp';
 
-  return (
-    <div
-      className={cn(
-        'relative pointer-events-none overflow-hidden z-50',
-        className
-      )}
-      {...props}
-    >
-      <Image
-        src={frameSrc}
-        alt="Phone template"
-        className="pointer-events-none select-none z-50 size-full"
-        priority
-        width={350}
-        height={100}
-      />
+    return (
+        <div
+            className={cn(
+                'pointer-events-none relative z-50 overflow-hidden',
+                className,
+            )}
+            {...props}
+        >
+            <Image
+                src={frameSrc}
+                alt='Phone template'
+                className='pointer-events-none z-50 size-full select-none'
+                priority
+                width={350}
+                height={100}
+            />
 
-      <Image
-        src={imgSrc}
-        alt="Phone Image"
-        className="object-cover absolute inset-0 -z-10 size-full"
-        priority
-        width={350}
-        height={100}
-      />
-    </div>
-  );
+            <Image
+                src={imgSrc}
+                alt='Phone Image'
+                className='absolute inset-0 -z-10 size-full object-cover'
+                priority
+                width={350}
+                height={100}
+            />
+        </div>
+    );
 };
 
 export default Phone;
