@@ -63,7 +63,7 @@ export const OrderReceived = ({
                     <Hr style={global.hr} />
                     <Section style={message}>
                         <Img
-                            src={`${baseUrl}/images/snake-1.webp`}
+                            src={`${baseUrl}/images/ccshort.webp`}
                             width='66'
                             height='70'
                             alt='Case Craft'

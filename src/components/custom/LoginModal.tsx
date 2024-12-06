@@ -23,9 +23,9 @@ const LoginModal = ({
                 <DialogHeader>
                     <div className='relative mx-auto mb-2 h-24 w-24'>
                         <Image
-                            src='/images/snake-1.webp'
-                            alt='Logo'
-                            className='object-contain'
+                            src='/images/ccshort.webp'
+                            alt='Case Craft Logo'
+                            className='object-cover'
                             fill
                         />
                     </div>
