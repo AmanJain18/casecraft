@@ -1,5 +1,5 @@
 import { Icons } from '@/components/custom/Icons';
-import MaxWithWrapper from '@/components/custom/MaxWithWrapper';
+import MaxWidthWrapper from '@/components/custom/MaxWidthWrapper';
 import Phone from '@/components/custom/Phone';
 import { CaseShowcase } from '@/components/custom/CaseShowcase';
 import { buttonVariants } from '@/components/ui/button';
@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <div className='bg-slate-50'>
             <section>
-                <MaxWithWrapper className='pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-3 lg:gap-x-0 lg:pb-52 lg:pt-24 xl:gap-x-8 xl:pb-64 xl:pt-32'>
+                <MaxWidthWrapper className='pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-3 lg:gap-x-0 lg:pb-52 lg:pt-24 xl:gap-x-8 xl:pb-64 xl:pt-32'>
                     <div className='col-span-2 px-6 lg:px-0 lg:pt-4'>
                         <div className='relative mx-auto flex flex-col items-center text-center lg:items-start lg:text-left'>
                             <div className='absolute -left-[4.5rem] -top-[12rem] hidden w-60 lg:block'>
@@ -150,12 +150,12 @@ export default function Home() {
                             <Phone imgSrc='/testimonials/3.webp' />
                         </div>
                     </div>
-                </MaxWithWrapper>
+                </MaxWidthWrapper>
             </section>
 
             {/* Value Proposition Section */}
             <section className='grainy-dark bg-slate-100 py-24'>
-                <MaxWithWrapper className='flex flex-col items-center gap-16 sm:gap-32'>
+                <MaxWidthWrapper className='flex flex-col items-center gap-16 sm:gap-32'>
                     <div className='flex flex-col items-center gap-4 sm:gap-6 lg:flex-row'>
                         <img
                             src='/images/wocs.webp'
@@ -259,7 +259,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                </MaxWithWrapper>
+                </MaxWidthWrapper>
 
                 <div className='pt-16'>
                     <CaseShowcase />
@@ -268,7 +268,7 @@ export default function Home() {
 
             {/* CTA */}
             <section>
-                <MaxWithWrapper className='py-24'>
+                <MaxWidthWrapper className='py-24'>
                     {/* CTA Heading */}
                     <div className='mb-12 px-6 lg:px-8'>
                         <div className='mx-auto max-w-2xl sm:text-center'>
@@ -353,7 +353,7 @@ export default function Home() {
                             </Link>
                         </div>
                     </ul>
-                </MaxWithWrapper>
+                </MaxWidthWrapper>
             </section>
         </div>
     );

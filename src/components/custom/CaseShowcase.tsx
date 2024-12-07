@@ -1,5 +1,5 @@
 import CaseGrid from './CaseGrid';
-import MaxWithWrapper from './MaxWithWrapper';
+import MaxWidthWrapper from './MaxWidthWrapper';
 
 const PHONES = [
     '/testimonials/1.webp',
@@ -17,7 +17,7 @@ const PHONES = [
 
 export function CaseShowcase() {
     return (
-        <MaxWithWrapper className='relative max-w-5xl'>
+        <MaxWidthWrapper className='relative max-w-5xl'>
             <img
                 src='/images/what-people-are-buying.webp'
                 alt='what people are buying'
@@ -25,6 +25,6 @@ export function CaseShowcase() {
                 className='absolute -left-32 top-1/3 hidden select-none xl:block'
             />
             <CaseGrid images={PHONES} />
-        </MaxWithWrapper>
+        </MaxWidthWrapper>
     );
 }

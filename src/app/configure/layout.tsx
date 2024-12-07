@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
-import MaxWithWrapper from '@/components/custom/MaxWithWrapper';
+import MaxWidthWrapper from '@/components/custom/MaxWidthWrapper';
 import Steps from '@/components/custom/Steps';
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  return (
-    <MaxWithWrapper className="flex flex-col flex-1">
-      <Steps />
-      {children}
-    </MaxWithWrapper>
-  );
+    return (
+        <MaxWidthWrapper className='flex flex-1 flex-col'>
+            <Steps />
+            {children}
+        </MaxWidthWrapper>
+    );
 };
 
 export default Layout;
