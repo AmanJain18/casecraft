@@ -23,51 +23,51 @@ import Dropdown from './Dropdown';
 import MaxWidthWrapper from '@/components/custom/MaxWidthWrapper';
 
 const Page = async () => {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    try {
+        const { getUser } = getKindeServerSession();
+        const user = await getUser();
 
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-
-    if (!user || user.email?.toLowerCase() !== ADMIN_EMAIL?.toLowerCase()) {
+        if (!user) {
+            console.log('No user found, redirecting...');
+            redirect('/');
+        } else if (
+            user.email?.toLowerCase() !== process.env.ADMIN_EMAIL?.toLowerCase()
+        ) {
+            console.log('Unauthorized user, redirecting...');
+            redirect('/');
+        }
+    } catch (error) {
+        console.error('Error fetching user:', error);
         redirect('/');
     }
 
-    const orders = await client.order.findMany({
-        where: {
-            isPaid: true,
-        },
-        orderBy: {
-            createdAt: 'desc',
-        },
-        include: {
-            user: true,
-            shippingAddress: true,
-        },
-    });
-
-    const lastWeekSum = await client.order.aggregate({
-        where: {
-            isPaid: true,
-            createdAt: {
-                gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+    const [orders, lastWeekSum, lastMonthSum] = await Promise.all([
+        client.order.findMany({
+            where: { isPaid: true },
+            orderBy: { createdAt: 'desc' },
+            include: { user: true, shippingAddress: true },
+        }),
+        client.order.aggregate({
+            where: {
+                isPaid: true,
+                createdAt: {
+                    gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+                },
             },
-        },
-        _sum: {
-            amount: true,
-        },
-    });
-
-    const lastMonthSum = await client.order.aggregate({
-        where: {
-            isPaid: true,
-            createdAt: {
-                gte: new Date(new Date().setDate(new Date().getDate() - 30)),
+            _sum: { amount: true },
+        }),
+        client.order.aggregate({
+            where: {
+                isPaid: true,
+                createdAt: {
+                    gte: new Date(
+                        new Date().setDate(new Date().getDate() - 30),
+                    ),
+                },
             },
-        },
-        _sum: {
-            amount: true,
-        },
-    });
+            _sum: { amount: true },
+        }),
+    ]);
 
     const WEEKLY_GOAL = 5000;
     const MONTHLY_GOAL = 25000;
