@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export const GET = handleAuth();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const OPTIONS = async (req: NextRequest) => {
     return new Response(null, {
         status: 204,
