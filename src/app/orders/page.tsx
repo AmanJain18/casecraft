@@ -12,15 +12,13 @@ import { getUserOrders } from './actions'; // The function to fetch orders
 import { Loader2 } from 'lucide-react';
 import PhonePreview from '@/components/custom/PhonePreview';
 import Link from 'next/link';
+import { GetOrders } from '@/db';
 
 const OrdersPage = () => {
-    const {
-        data: orders,
-        isLoading,
-        isError,
-    } = useQuery({
+    const { data: orders, isLoading } = useQuery<GetOrders[]>({
         queryKey: ['user-orders'],
-        queryFn: () => getUserOrders(),
+        queryFn: getUserOrders,
+        retry: 1,
     });
 
     // Handle loading and error states
@@ -31,12 +29,6 @@ const OrdersPage = () => {
             </div>
         );
     }
-    if (isError)
-        return (
-            <div className='mt-20 flex justify-center'>
-                Failed to load orders.
-            </div>
-        );
 
     return (
         <div className='orders-page container mx-auto px-4 py-10'>

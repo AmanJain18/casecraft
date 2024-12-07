@@ -164,7 +164,18 @@ export const deleteConfiguration = async (id: string, userId: string) => {
     });
 };
 
-export const getUserOrdersFromDb = async (userId: string) => {
+export type GetOrders = Prisma.OrderGetPayload<{
+    include: {
+        configuration: true;
+        user: true;
+        billingAddress: true;
+        shippingAddress: true;
+    };
+}>;
+
+export const getUserOrdersFromDb = async (
+    userId: string,
+): Promise<GetOrders[]> => {
     return client.order.findMany({
         where: { userId },
         orderBy: {

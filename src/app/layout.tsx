@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 // import localFont from 'next/font/local';
 import { Recursive } from 'next/font/google';
 import './globals.css';
@@ -41,6 +42,7 @@ export default function RootLayout({
                         <Footer />
                     </main>
                     <Toaster />
+                    <SpeedInsights />
                 </body>
             </html>
         </AuthProvider>
