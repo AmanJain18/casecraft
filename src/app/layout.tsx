@@ -7,6 +7,7 @@ import Footer from '@/components/custom/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import ClientProvider from '@/components/custom/ClientProvider';
 import { constructMetadata } from '@/lib/utils';
+import { AuthProvider } from '@/components/custom/AuthProvider';
 
 const recursive = Recursive({ subsets: ['latin'] });
 // const geistSans = localFont({
@@ -29,17 +30,19 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang='en'>
-            <body className={`${recursive.className} antialiased`}>
-                <Navbar />
-                <main className='grainy-light flex min-h-[calc(100vh-3.5rem)] flex-col'>
-                    <div className='flex h-full flex-1 flex-col'>
-                        <ClientProvider>{children}</ClientProvider>
-                    </div>
-                    <Footer />
-                </main>
-                <Toaster />
-            </body>
-        </html>
+        <AuthProvider>
+            <html lang='en'>
+                <body className={`${recursive.className} antialiased`}>
+                    <Navbar />
+                    <main className='grainy-light flex min-h-[calc(100vh-3.5rem)] flex-col'>
+                        <div className='flex h-full flex-1 flex-col'>
+                            <ClientProvider>{children}</ClientProvider>
+                        </div>
+                        <Footer />
+                    </main>
+                    <Toaster />
+                </body>
+            </html>
+        </AuthProvider>
     );
 }
