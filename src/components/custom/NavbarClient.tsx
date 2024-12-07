@@ -1,5 +1,4 @@
-// NavbarClient.tsx (Client-side component)
-'use client'; // Ensure this is a client-side component
+'use client';
 
 import React, { useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
@@ -7,6 +6,11 @@ import { buttonVariants } from '../ui/button';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/types';
+import {
+    LoginLink,
+    RegisterLink,
+    LogoutLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
 
 const NavbarClient = ({
     user,
@@ -65,16 +69,15 @@ const NavbarClient = ({
                 <div className='hidden items-center space-x-6 sm:flex'>
                     {user ? (
                         <>
-                            <Link
-                                href='/api/auth/logout'
+                            <LogoutLink
                                 className={buttonVariants({
                                     variant: 'ghost',
                                     size: 'sm',
                                 })}
-                                onClick={() => setIsMobileMenuOpen(false)} // Close menu on logout
+                                onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Sign Out
-                            </Link>
+                            </LogoutLink>
                             {/* Admin Dashboard Link */}
                             {isAdmin &&
                                 renderProtectedLink(
@@ -91,24 +94,22 @@ const NavbarClient = ({
                         </>
                     ) : (
                         <>
-                            <Link
-                                href='/api/auth/register'
+                            <RegisterLink
                                 className={buttonVariants({
-                                    size: 'sm',
                                     variant: 'ghost',
+                                    size: 'sm',
                                 })}
                             >
-                                Sign Up
-                            </Link>
-                            <Link
-                                href='/api/auth/login'
+                                Sign up
+                            </RegisterLink>
+                            <LoginLink
                                 className={buttonVariants({
-                                    size: 'sm',
                                     variant: 'ghost',
+                                    size: 'sm',
                                 })}
                             >
                                 Login
-                            </Link>
+                            </LoginLink>
                         </>
                     )}
                 </div>
@@ -127,16 +128,15 @@ const NavbarClient = ({
                 <div className='flex flex-col items-center justify-center space-y-6 py-10'>
                     {user ? (
                         <>
-                            <Link
-                                href='/api/auth/logout'
+                            <LogoutLink
                                 className={buttonVariants({
-                                    size: 'sm',
                                     variant: 'ghost',
+                                    size: 'sm',
                                 })}
-                                onClick={() => setIsMobileMenuOpen(false)} // Close on click
+                                onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Sign Out
-                            </Link>
+                            </LogoutLink>
 
                             {isAdmin && (
                                 <Link
@@ -175,21 +175,24 @@ const NavbarClient = ({
                         </>
                     ) : (
                         <>
-                            <Link
-                                href='/api/auth/register'
-                                className={buttonVariants({ size: 'sm' })}
-                                onClick={() => setIsMobileMenuOpen(false)} // Close on click
+                            <RegisterLink
+                                className={buttonVariants({
+                                    variant: 'ghost',
+                                    size: 'sm',
+                                })}
+                                onClick={() => setIsMobileMenuOpen(false)}
                             >
-                                Sign Up
-                            </Link>
-
-                            <Link
-                                href='/api/auth/login'
-                                className={buttonVariants({ size: 'sm' })}
-                                onClick={() => setIsMobileMenuOpen(false)} // Close on click
+                                Sign up
+                            </RegisterLink>
+                            <LoginLink
+                                className={buttonVariants({
+                                    variant: 'ghost',
+                                    size: 'sm',
+                                })}
+                                onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Login
-                            </Link>
+                            </LoginLink>
                         </>
                     )}
                 </div>
