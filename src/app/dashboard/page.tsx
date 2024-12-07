@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import {
     Card,
     CardContent,
@@ -18,8 +19,8 @@ import {
 import client from '@/db';
 import { formatPrice } from '@/lib/utils';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { notFound } from 'next/navigation';
 import Dropdown from './Dropdown';
+import MaxWidthWrapper from '@/components/custom/MaxWidthWrapper';
 
 const Page = async () => {
     const { getUser } = getKindeServerSession();
@@ -28,15 +29,12 @@ const Page = async () => {
     const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
     if (!user || user.email !== ADMIN_EMAIL) {
-        return notFound();
+        redirect('/');
     }
 
     const orders = await client.order.findMany({
         where: {
             isPaid: true,
-            createdAt: {
-                gte: new Date(new Date().setDate(new Date().getDate() - 7)),
-            },
         },
         orderBy: {
             createdAt: 'desc',
@@ -73,10 +71,10 @@ const Page = async () => {
 
     const WEEKLY_GOAL = 5000;
     const MONTHLY_GOAL = 25000;
-    
+
     return (
-        <div className='flex min-h-screen w-full bg-muted/40'>
-            <div className='mx-auto flex w-full max-w-7xl flex-col p-4 sm:gap-4 sm:p-6 md:p-8 lg:p-10'>
+        <MaxWidthWrapper className='flex min-h-screen w-full bg-muted/40'>
+            <div className='mx-auto flex w-full flex-col sm:gap-4 sm:py-6 md:py-8 lg:py-10'>
                 <div className='flex flex-col gap-16'>
                     <div className='grid gap-4 sm:grid-cols-2'>
                         <Card>
@@ -173,7 +171,7 @@ const Page = async () => {
                     </Table>
                 </div>
             </div>
-        </div>
+        </MaxWidthWrapper>
     );
 };
 

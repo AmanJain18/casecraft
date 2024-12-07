@@ -1,18 +1,19 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { getUserOrders } from './actions';
+import { GetOrders } from '@/db';
+import PhonePreview from '@/components/custom/PhonePreview';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'; // Assuming you have a custom Card component
-import { useQuery } from '@tanstack/react-query';
-import { getUserOrders } from './actions'; // The function to fetch orders
-import { Loader2 } from 'lucide-react';
-import PhonePreview from '@/components/custom/PhonePreview';
-import Link from 'next/link';
-import { GetOrders } from '@/db';
+} from '@/components/ui/card';
+import MaxWidthWrapper from '@/components/custom/MaxWidthWrapper';
 
 const OrdersPage = () => {
     const { data: orders, isLoading } = useQuery<GetOrders[]>({
@@ -21,7 +22,7 @@ const OrdersPage = () => {
         retry: 1,
     });
 
-    // Handle loading and error states
+    // Loading state
     if (isLoading) {
         return (
             <div className='mt-20 flex justify-center'>
@@ -31,17 +32,17 @@ const OrdersPage = () => {
     }
 
     return (
-        <div className='orders-page container mx-auto px-4 py-10'>
-            <h2 className='mb-4 text-2xl font-bold'>Your Orders</h2>
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-                {orders?.length === 0 ? (
-                    <p>No orders found.</p>
-                ) : (
-                    orders?.map((order) => (
+        <MaxWidthWrapper className='py-10'>
+            <h2 className='mb-8 text-3xl font-bold'>Your Orders</h2>
+            {orders?.length === 0 ? (
+                <p className='text-zinc-500'>No orders found.</p>
+            ) : (
+                <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+                    {orders?.map((order) => (
                         <Card key={order.id} className='shadow-lg'>
                             <CardHeader>
                                 <CardTitle>
-                                    Order Id:-{' '}
+                                    Order ID:{' '}
                                     <Link
                                         href={`thank-you?orderId=${order.id}`}
                                         className='text-primary underline underline-offset-4'
@@ -75,17 +76,17 @@ const OrdersPage = () => {
                                 <p>
                                     Shipping Address:{' '}
                                     {order.shippingAddress?.street ||
-                                        'Not provided'}
-                                    {'-'}
+                                        'Not provided'}{' '}
+                                    -{' '}
                                     {order.shippingAddress?.postalCode ||
                                         'Not provided'}
                                 </p>
                             </CardContent>
                         </Card>
-                    ))
-                )}
-            </div>
-        </div>
+                    ))}
+                </div>
+            )}
+        </MaxWidthWrapper>
     );
 };
 
