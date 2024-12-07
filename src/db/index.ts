@@ -11,11 +11,8 @@ declare global {
     var prisma: PrismaClient | undefined;
 }
 
-const client = global.prisma || new PrismaClient();
-
-if (process.env.NODE_ENV !== 'production') {
-    global.prisma = client;
-}
+const client = global.prisma || new PrismaClient({ log: ['info'] });
+if (process.env.NODE_ENV !== 'production') global.prisma = client;
 
 // Create a new configuration (without user linkage initially)
 export const createConfiguration = async (
