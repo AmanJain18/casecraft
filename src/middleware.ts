@@ -20,6 +20,17 @@ export async function middleware(request: NextRequest) {
             console.error('Error fetching user session:', error);
             return NextResponse.redirect(new URL('/', request.url));
         }
+    } else if (request.nextUrl.pathname === '/dashboard') {
+        const { getUser } = getKindeServerSession();
+        const user = await getUser();
+
+        if (!user) {
+            return NextResponse.redirect(new URL('/', request.url));
+        }
+
+        if (user.email !== process.env.ADMIN_EMAIL) {
+            return NextResponse.redirect(new URL('/', request.url));
+        }
     }
 
     const response = NextResponse.next();
@@ -29,5 +40,5 @@ export async function middleware(request: NextRequest) {
 
 // Apply the middleware to these routes
 export const config = {
-    matcher: ['/orders', '/configurations'],
+    matcher: ['/orders', '/configurations', '/dashboard'],
 };

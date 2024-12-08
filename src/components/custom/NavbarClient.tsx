@@ -16,7 +16,7 @@ const NavbarClient = ({
     user,
     isAdmin,
 }: {
-    user: KindeUser<Record<string, unknown>>;
+    user: KindeUser<Record<string, unknown>> | null;
     isAdmin: boolean;
 }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -138,40 +138,17 @@ const NavbarClient = ({
                                 Sign Out
                             </LogoutLink>
 
-                            {isAdmin && (
-                                <Link
-                                    href='/dashboard'
-                                    className={buttonVariants({
-                                        size: 'sm',
-                                        variant: 'ghost',
-                                    })}
-                                    onClick={() => setIsMobileMenuOpen(false)} // Close on click
-                                >
-                                    Dashboard ✨
-                                </Link>
+                            {isAdmin &&
+                                renderProtectedLink(
+                                    '/dashboard',
+                                    'Dashboard ✨',
+                                )}
+
+                            {renderProtectedLink('/orders', 'My Orders')}
+                            {renderProtectedLink(
+                                '/configurations',
+                                'My Configurations',
                             )}
-
-                            <Link
-                                href='/orders'
-                                className={buttonVariants({
-                                    size: 'sm',
-                                    variant: 'ghost',
-                                })}
-                                onClick={() => setIsMobileMenuOpen(false)} // Close on click
-                            >
-                                My Orders
-                            </Link>
-
-                            <Link
-                                href='/configurations'
-                                className={buttonVariants({
-                                    size: 'sm',
-                                    variant: 'ghost',
-                                })}
-                                onClick={() => setIsMobileMenuOpen(false)} // Close on click
-                            >
-                                My Configurations
-                            </Link>
                         </>
                     ) : (
                         <>
